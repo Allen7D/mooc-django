@@ -1,0 +1,17 @@
+# Editor directories and files
+.DS_Store
+.idea
+.vscode
+
+
+__pycache__/
+*.py[cod]
+*$py.class
+Pipfile.lock
+
+# Local working file
+.venv/*
+venv/*
+# 忽略migrations的操作记录
+apps/*/migrations/*
+!apps/*/migrations/__init__.py
