@@ -5,6 +5,7 @@ from core.models import BaseModel
 
 
 class Course(BaseModel):
+    """课程"""
     name = models.CharField(verbose_name='课程名', max_length=50)
     teacher = models.ForeignKey(Teacher, verbose_name='讲师', on_delete=models.DO_NOTHING)
     desc = models.CharField(verbose_name='课程描述', max_length=300)
@@ -30,6 +31,7 @@ class Course(BaseModel):
 
 
 class Lesson(BaseModel):
+    """章节"""
     couser = models.ForeignKey(Course, on_delete=models.CASCADE)  # models.CASCADE表示 Course删除时情况关联的Lesson
     name = models.CharField(verbose_name='章节名', max_length=100)
     learn_duration = models.IntegerField(verbose_name='学习时长(分)', default=0)
@@ -44,6 +46,7 @@ class Lesson(BaseModel):
 
 
 class Video(BaseModel):
+    """视频"""
     lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
     name = models.CharField(verbose_name='视频名', max_length=100)
     learn_duration = models.IntegerField(verbose_name='学习时长(分)', default=0)
@@ -59,7 +62,7 @@ class Video(BaseModel):
 
 
 class CourseResource(BaseModel):
-    '''课程资源'''
+    """课程资源"""
     course = models.ForeignKey(Course, verbose_name='课程', on_delete=models.CASCADE)
     name = models.CharField(verbose_name='名称', max_length=100)
     file = models.FileField(upload_to='course/resource/%Y/%m', verbose_name='资源地址')

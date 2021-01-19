@@ -1,11 +1,12 @@
 from django.db import models
+
 from core.models import BaseModel
 
 
 class City(models.Model):
-    '''城市'''
+    """城市"""
     name = models.CharField(verbose_name='城市', max_length=20)
-    desc = models.CharField(verbose_name='描述', max_length=200)
+    desc = models.CharField(verbose_name='描述', max_length=200, null=True, blank=True)
 
     class Meta:
         verbose_name = '城市'
@@ -17,7 +18,7 @@ class City(models.Model):
 
 
 class Org(BaseModel):
-    '''课程机构'''
+    """课程机构"""
     name = models.CharField(verbose_name='机构名', max_length=50)
     desc = models.TextField(verbose_name='描述')
     tag = models.CharField(verbose_name='标签', max_length=10, default='全国知名')
@@ -41,17 +42,17 @@ class Org(BaseModel):
 
 
 class Teacher(BaseModel):
-    '''机构教师'''
+    """机构教师"""
     org = models.ForeignKey(Org, verbose_name='所属机构', on_delete=models.CASCADE)
-    name = models.CharField(verbose_name='机构名', max_length=50)
-    age = models.IntegerField(verbose_name='', default=18)
-    work_years = models.IntegerField(verbose_name='', default=0)
-    work_company = models.CharField(verbose_name='', max_length=50)
-    work_position = models.CharField(verbose_name='', max_length=50)
-    feature = models.CharField(verbose_name='', max_length=50)
+    name = models.CharField(verbose_name='教师名', max_length=50)
+    age = models.IntegerField(verbose_name='年龄', default=18)
+    work_years = models.IntegerField(verbose_name='工作年限', default=0)
+    work_company = models.CharField(verbose_name='就职公司', max_length=50)
+    work_position = models.CharField(verbose_name='公司职位', max_length=50)
+    feature = models.CharField(verbose_name='教学特点', max_length=50)
     favor_nums = models.IntegerField(verbose_name='收藏数', default=0)
     click_nums = models.IntegerField(verbose_name='点击数', default=0)
-    image = models.ImageField(verbose_name='', upload_to='teacher/%Y/%m')
+    image = models.ImageField(verbose_name='头像', upload_to='teacher/%Y/%m')
 
     class Meta:
         verbose_name = '教师'
