@@ -11,10 +11,18 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 import os
+import sys
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
+# Path(__file__) 或者 os.path.abspath(__file__) 当前文件所在的路径
+# BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# 选择用sys.path.insert(0,‘/path’)，这样新添加的目录会优先于其他目录被import检查
+sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
+sys.path.insert(0, os.path.join(BASE_DIR, 'extra_apps'))
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -40,6 +48,10 @@ INSTALLED_APPS = [
     'apps.org.apps.OrgConfig',
     'apps.course.apps.CourseConfig',
     'apps.oper.apps.OperConfig',
+    'crispy_forms',
+    'xadmin',
+    'DjangoUeditor',
+    'import_export',
 ]
 
 MIDDLEWARE = [
@@ -79,7 +91,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'edifice',
+        'NAME': 'mooc',
         'USER': 'root',
         'PASSWORD': '159951',
         'HOST': '127.0.0.1',

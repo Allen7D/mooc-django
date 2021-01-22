@@ -7,14 +7,14 @@ from core.models import BaseModel
 User = get_user_model()
 
 
-class UserAsk(models.Model):
+class UserAsk(BaseModel):
     """用户咨询"""
-    name = models.CharField(max_length=20, verbose_name=u"姓名")
-    mobile = models.CharField(max_length=11, verbose_name=u"手机")
-    course_name = models.CharField(max_length=50, verbose_name=u"课程名")
+    name = models.CharField(verbose_name='姓名', max_length=20)
+    course_name = models.CharField(verbose_name='课程名', max_length=50)
+    mobile = models.CharField(verbose_name='手机', max_length=11)
 
     class Meta:
-        verbose_name = u"用户咨询"
+        verbose_name = '用户咨询'
         verbose_name_plural = verbose_name
         db_table = 'user_ask'
 
@@ -40,7 +40,7 @@ class CourseComment(BaseModel):
     """课程评论"""
     user = models.ForeignKey(User, verbose_name='用户', on_delete=models.CASCADE)
     course = models.ForeignKey(Course, verbose_name='课程', on_delete=models.CASCADE)
-    comment = models.CharField(verbose_name='评论内容', max_length=200)
+    content = models.CharField(verbose_name='评论内容', max_length=200)
 
     class Meta:
         verbose_name = '课程评论'
@@ -48,7 +48,7 @@ class CourseComment(BaseModel):
         db_table = 'course_comment'
 
     def __str__(self):
-        return self.comment
+        return self.content
 
 
 class UserFavor(BaseModel):
